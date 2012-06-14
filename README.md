@@ -1,7 +1,7 @@
 SubtlePatterns
 ===============
 
-All the patterns from www.subtlepatterns.com
+All the patterns from www.subtlepatterns.com - including the famous Photoshop .pat file
 
 Subtle Patterns is created and curated by Atle Mo.
 The original author of the patterns are credited on subtlepatterns.com
