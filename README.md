@@ -3,6 +3,10 @@ SubtlePatterns
 
 All the patterns from www.subtlepatterns.com - including the famous Photoshop .pat file
 
+If you need Base64 versions of the patterns you can use this generator:
+http://www.greywyvern.com/code/php/binary2base64
+
+
 Subtle Patterns is created and curated by Atle Mo.
 The original author of the patterns are credited on subtlepatterns.com
 
