@@ -10,8 +10,12 @@ http://www.greywyvern.com/code/php/binary2base64
 Subtle Patterns is created and curated by Atle Mo.
 The original author of the patterns are credited on subtlepatterns.com
 
-The work is licensed under a Creative Commons Attribution 3.0 Unported License.
-The patterns can be used freely in both personal and commercial projects with no attribution required, but always appreciated.
+Subtle Patterns by Subtle Patterns is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
+Based on work at subtlepatterns.com.
+Permissions beyond the scope of this license may be available upon contact.
+A project by Atle Mo.
+
+Subtle Patterns and www.subtlepatterns.com © 2012 Atle Mo.
 
 ===============
 
