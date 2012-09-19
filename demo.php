@@ -1,12 +1,6 @@
 <?php
 
-$raw_files = glob('*.*');
-$files = array();
-
-foreach( $raw_files as $r ){
-  if( preg_match( '/\.(?:png|jpg|jpeg)$/' , $r ) )
-    $files[] = $r;
-}
+$files = glob('*.{png,jpg,jpeg}', GLOB_BRACE);
 
 ?><!DOCTYPE html>
 <html lang="en">
