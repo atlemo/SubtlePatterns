@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Subtle Pattern Demo</title>
+<style>
+body , html { padding:0;margin:0;height:100%; }
+body { background:#ccc none repeat 0 0; }
+form { padding:10px;text-align:center;background:#FFF;border-bottom:1px solid #000; }
+</style>
+</head>
+<body>
+<form>
+<select id="image">
+  <option selected>Downloading Pattern Names...</option>
+</select>
+</form>
+
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+
+  var pattern_selector = $('#image')
+      body_tag = $('body');
+  
+  // make an ajax request to find all the file names
+  $.getJSON('https://api.github.com/repos/subtlepatterns/SubtlePatterns/contents?callback=?', function(files) {
+    // http://baylorrae.com/prevent-dom-reflow/
+    var items = document.createDocumentFragment(),
+        item, file;
+    
+    // loop through all files in the repo
+    for( var i = 0, len = files.data.length; i < len; i++ ) {
+      file = files.data[i];
+      
+      // skip over non image files
+      if( /\.(png|jpg|jpeg)$/.test(file["path"]) == false ) {
+        continue;
+      }
+      
+      // create the option tag and use the raw image url
+      item = $('<option />', {
+        value: file["_links"]["html"].replace('blob', 'raw'),
+        text: file["path"]
+      })[0];
+      
+      items.appendChild(item);
+    }
+    
+    // update the dropdown menu
+    pattern_selector.find('option').remove();
+    pattern_selector.append(items);
+    pattern_selector.change();
+  });
+  
+  // bind an event to change the body background image
+  pattern_selector.change(function() {
+    body_tag.css('background-image', 'url(' + this.value + ')');
+  });
+
+});
+</script>
+</body>
+</html>
