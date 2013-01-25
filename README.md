@@ -15,7 +15,7 @@ Based on work at subtlepatterns.com.
 Permissions beyond the scope of this license may be available upon contact.
 A project by Atle Mo.
 
-Subtle Patterns and www.subtlepatterns.com © 2012 Atle Mo.
+Subtle Patterns and www.subtlepatterns.com © 2013 Atle Mo.
 
 ===============
 
