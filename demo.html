@@ -16,49 +16,49 @@ form { padding:10px;text-align:center;background:#FFF;border-bottom:1px solid #0
 </select>
 </form>
 
-<script src="http://code.jquery.com/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
-
-  var pattern_selector = $('#image')
-      body_tag = $('body');
+var loadPatterns = function () {
+  var ajax, ajaxTimeout, requrl;
+  ajax = (window.ActiveXObject) ? new ActiveXObject("Microsoft.XMLHTTP") : (XMLHttpRequest && new XMLHttpRequest()) || null;
   
-  // make an ajax request to find all the file names
-  $.getJSON('https://api.github.com/repos/subtlepatterns/SubtlePatterns/contents?callback=?', function(files) {
-    // http://baylorrae.com/prevent-dom-reflow/
-    var items = document.createDocumentFragment(),
-        item, file;
-    
-    // loop through all files in the repo
-    for( var i = 0, len = files.data.length; i < len; i++ ) {
-      file = files.data[i];
-      
-      // skip over non image files
-      if( /\.(png|jpg|jpeg)$/.test(file["path"]) == false ) {
-        continue;
+  ajaxTimeout = window.setTimeout(function () {
+    ajax.abort();
+  }, 6000);
+  
+  ajax.onreadystatechange = function () {
+    var selectEle, itemsArray, itemsString, i;
+    if (ajax.readyState === 4) {
+      if (ajax.status === 200) {
+        clearTimeout(ajaxTimeout);
+        if (ajax.status !== 200) {
+          
+        } else {
+          selectEle = document.getElementById('image');
+          itemsArray = JSON.parse(ajax.responseText);
+          itemsString = '';
+          for(i = 0; i < itemsArray.length; i++) {
+            if(itemsArray[i].name.indexOf('.png') !== -1) {
+              itemsString += '<option value="'+itemsArray[i].html_url.replace("blob", "raw")+'">'+itemsArray[i].name+'</option>';
+            }
+          }
+          selectEle.innerHTML = itemsString;
+          selectEle.setAttribute("onchange", "setPattern(this.value);"); // = setPattern(selectEle.value);
+        }
       }
-      
-      // create the option tag and use the raw image url
-      item = $('<option />', {
-        value: file["_links"]["html"].replace('blob', 'raw'),
-        text: file["path"]
-      })[0];
-      
-      items.appendChild(item);
     }
-    
-    // update the dropdown menu
-    pattern_selector.find('option').remove();
-    pattern_selector.append(items);
-    pattern_selector.change();
-  });
+  };
   
-  // bind an event to change the body background image
-  pattern_selector.change(function() {
-    body_tag.css('background-image', 'url(' + this.value + ')');
-  });
+  requrl = 'https://api.github.com/repos/subtlepatterns/SubtlePatterns/contents';
+  ajax.open("GET", requrl, true);
+  ajax.send();
+}
 
-});
+var setPattern = function (url) {
+  var bodyEle = document.getElementsByTagName('body')[0];
+  bodyEle.style.backgroundImage = 'url("'+url+'")';
+}
+
+window.onload = loadPatterns();
 </script>
 </body>
 </html>
